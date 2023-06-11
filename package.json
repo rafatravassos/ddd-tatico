@@ -11,6 +11,7 @@
     "@swc/jest": "^0.2.26"
   },
   "scripts": {
-    "test": "jest"
+    "test": "npm run tsc -- --noEmit && jest",
+    "tsc": "tsc"
   }
 }
