@@ -3,7 +3,7 @@ import Address from "./address";
 export default class Customer {
     private _id: string="";
     private _name: string="";
-    private _address!: Address;
+    private _address: Address;
     private _active:boolean=true;
     private _rewardPoints:number = 0;
 
@@ -22,6 +22,10 @@ export default class Customer {
         }
     }
 
+    get Address() {
+        return this._address;
+    }
+
     get name(): string {
         return this._name;
     }
@@ -32,6 +36,10 @@ export default class Customer {
 
     get id(): string {
         return this._id;
+    }
+
+    changeAddress(address: Address) {
+        this._address = address;
     }
 
     addRewardPoints(points: number) {
