@@ -23,7 +23,7 @@ export default class CustomerRepository implements CustomerRepositoryInterface {
                 name: entity.name,
                 street: entity.Address.street,
                 number: entity.Address.number,
-                zip: entity.Address.zip,
+                zipcode: entity.Address.zip,
                 city: entity.Address.city,
                 active: entity.isActive(),
                 rewardPoints: entity.rewardPoints
@@ -42,7 +42,9 @@ export default class CustomerRepository implements CustomerRepositoryInterface {
         let customerModel;
         try {
             customerModel = await CustomerModel.findOne({
-                where: {id},
+                where: {
+                    id,
+                },
                 rejectOnEmpty: true,
             });
         } catch (error) {
@@ -60,16 +62,29 @@ export default class CustomerRepository implements CustomerRepositoryInterface {
         )
         customer.changeAddress(address);
         return customer;
-
-
-
-
     }
 
 
     async findAll(): Promise<Customer[]>{
         const customerModels = await CustomerModel.findAll();
-        return customerModels.map((customerModel) => 
-            new Customer(customerModel.id, customerModel.name));        
+
+
+        const customers = customerModels.map((customerModels) => {
+
+            let customer = new Customer(customerModels.id, customerModels.name);
+            customer.addRewardPoints(customerModels.rewardPoints);
+            const address = new Address(
+                customerModels.street,
+                customerModels.number,
+                customerModels.zipcode,
+                customerModels.city
+            );
+            customer.changeAddress(address);
+            if (customerModels.active) {
+                customer.activate();
+            }
+            return customer;
+        });        
+        return customers;
     }    
 }
