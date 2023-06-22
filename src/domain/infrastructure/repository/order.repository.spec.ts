@@ -1,15 +1,15 @@
 import { Sequelize } from "sequelize-typescript";
+import Order from "../../entity/order";
+import OrderItem from "../../entity/order_item";
 import Customer from "../../entity/customer";
 import Address from "../../entity/address";
-import CustomerRepository from "./customer.repository";
+import Product from "../../entity/product";
 import CustomerModel from "../db/sequelize/model/customer.model";
-import OrderModel from "../db/sequelize/model/order.model";
-import OrderItemModel from "../db/sequelize/model/order-item.model";
+import CustomerRepository from "./customer.repository";
 import ProductModel from "../db/sequelize/model/product.model";
 import ProductRepository from "./product.repository";
-import Product from "../../entity/product";
-import OrderItem from "../../entity/order_item";
-import Order from "../../entity/order";
+import OrderItemModel from "../db/sequelize/model/order-item.model";
+import OrderModel from "../db/sequelize/model/order.model";
 import OrderRepository from "./order.repository";
 
 describe("Order repository test", () => {
@@ -73,6 +73,7 @@ describe("Order repository test", () => {
                     price: orderItem.price,
                     quantity: orderItem.quantity,
                     order_id: "123",
+                    product_id: "1"
                 },
             ]
         }
