@@ -78,10 +78,85 @@ describe("Order repository test", () => {
             ]
         }
         );
-     
+    });
 
+    it("Shoud update an order", async () =>{
+        const customerRepository = new CustomerRepository();
+        const customer = new Customer("123", "Customer 1");
+        const address = new Address("Rua dos bobo", 123, "12345000", "SP");
+        customer.changeAddress(address);
+        customer.addRewardPoints(10);
+        customer.activate();
+
+        await customerRepository.create(customer);
+
+        const productRepository = new ProductRepository();
+        const product = new Product("1", "Product 1", 10);
+        await productRepository.create(product);
+
+        const orderItem = new OrderItem(
+            "1",
+            product.name,
+            product.price,
+            product.id,
+            2
+        )
+        const order = new Order("123", "123", [orderItem]);
+
+        const orderRepository = new OrderRepository();
+        await orderRepository.create(order)
+
+        const orderModel = await OrderModel.findOne({
+            where: {id: order.id},
+            include: ["items"]
+        });
+
+        expect(orderModel.toJSON()).toStrictEqual({
+            id: "123",
+            customer_id: "123",
+            total: order.total(),
+            items: [
+                {
+                    id: orderItem.id,
+                    name: orderItem.name,
+                    price: orderItem.price,
+                    quantity: orderItem.quantity,
+                    order_id: "123",
+                    product_id: "1"
+                },
+            ]
+        }
+        );
+        // Alterar a quantidade do item
+        orderItem.changeQuantity(5);
+        order.changeItems([orderItem]);
+        
+        await orderRepository.update(order)
+        
+        const orderModel2 = await OrderModel.findOne({
+            where: {id: order.id},
+            include: ["items"]
+        });
+
+        expect(orderModel2.toJSON()).toStrictEqual({
+            id: "123",
+            customer_id: "123",
+            total: order.total(),
+            items: [
+                {
+                    id: orderItem.id,
+                    name: orderItem.name,
+                    price: orderItem.price,
+                    quantity: orderItem.quantity,
+                    order_id: "123",
+                    product_id: "1"
+                },
+            ]
+        }
+        );
 
     });
+
 
     
 });

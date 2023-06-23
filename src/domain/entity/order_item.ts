@@ -40,5 +40,9 @@ export default class OrderItem {
       get id(): string {
         return this._id;
       }
+
+    changeQuantity(qty: number){
+        this._quantity = qty;
+    }
     
 }
