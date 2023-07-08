@@ -2,7 +2,7 @@ import EventDispatcherInterface from "./event-dispatcher.interface";
 import EventHandlerInterface from "./event-handler.interface";
 import EventInterface from "./event.interface";
 
-export default class EventDispatcer implements EventDispatcherInterface {
+export default class EventDispatcher implements EventDispatcherInterface {
     
     
     private eventHandlers: { [eventName: string]: EventHandlerInterface[] } = {};
