@@ -1,3 +1,6 @@
+import Address from "../../entity/address";
+import Customer from "../../entity/customer";
+import AddressChangedHandler from "../customer/address-changed.handler";
 import SendConsoleLog1Handler from "../customer/sendConsoleLog1.handler";
 import SendConsoleLog2Handler from "../customer/sendConsoleLog2.handler";
 import ProductCreatedEvent from "../product/product-created.event";
@@ -81,5 +84,23 @@ describe("Domain event tests", () => {
         expect(eventDispatcher.getEventHandlers["CustomerCreatedEvent"].length).toBe(1);
         expect(eventDispatcher.getEventHandlers["CustomerCreatedEvent"][0]).toMatchObject(eventHandler2);
     });
+
+    it("Should register an event when the customer address is changed", () => {
+        const customer = new Customer("ABC", "Janice");
+        const address = new Address("Rua 1", 120, "02250000", "Sao Paulo");
+        
+        customer.changeAddress(address)
+        const eventDispatcher = new EventDispatcher();
+        const eventHandler = new AddressChangedHandler(customer.id, customer.name, address);
+
+        eventDispatcher.register("AddressChangedEvent", eventHandler);
+
+        expect(eventDispatcher.getEventHandlers["AddressChangedEvent"]).toBeDefined();
+        expect(eventDispatcher.getEventHandlers["AddressChangedEvent"].length).toBe(1);
+        expect(eventDispatcher.getEventHandlers["AddressChangedEvent"][0]).toMatchObject(eventHandler);
+
+
+
+    })
 
 });
