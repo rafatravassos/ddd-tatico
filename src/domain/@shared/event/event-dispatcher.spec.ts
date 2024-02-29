@@ -1,9 +1,9 @@
-import Address from "../../entity/address";
+import Address from "../../customer/value-object/address";
 import Customer from "../../entity/customer";
 import AddressChangedHandler from "../customer/address-changed.handler";
 import SendConsoleLog1Handler from "../customer/sendConsoleLog1.handler";
 import SendConsoleLog2Handler from "../customer/sendConsoleLog2.handler";
-import ProductCreatedEvent from "../product/product-created.event";
+import ProductCreatedEvent from "../../product/event/handler/product-created.event";
 import SendEmailWhenProductIsCreatedHandler from "../product/sendEmailWhenProductIsCreated.handler";
 import EventDispatcher from "./event-dispatcher";
 

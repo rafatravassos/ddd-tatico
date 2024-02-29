@@ -1,8 +1,8 @@
 import { Sequelize } from "sequelize-typescript";
-import Order from "../../entity/order";
+import Order from "../../checkout/order";
 import OrderItem from "../../entity/order_item";
 import Customer from "../../entity/customer";
-import Address from "../../entity/address";
+import Address from "../../customer/value-object/address";
 import Product from "../../entity/product";
 import CustomerModel from "../db/sequelize/model/customer.model";
 import CustomerRepository from "./customer.repository";

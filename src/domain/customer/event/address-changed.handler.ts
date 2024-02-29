@@ -1,5 +1,5 @@
-import Address from "../../entity/address";
-import EventHandlerInterface from "../@shared/event-handler.interface";
+import Address from "../../customer/value-object/address";
+import EventHandlerInterface from "../../@shared//event/event-handler.interface";
 import AddressChangedEvent from "./address-change.event";
 import CustomerCreatedEvent from "./customer-created.event";
 
