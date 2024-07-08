@@ -31,7 +31,7 @@ export default class Address {
 
     validate() {
         if (this._street.length==0){
-            throw new Error("The name is required.");
+            throw new Error("The street is required.");
         }
         if (this._zip.length==0){
             throw new Error("The zip is required.");
