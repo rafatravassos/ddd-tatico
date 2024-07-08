@@ -1,8 +1,7 @@
 import { Sequelize } from "sequelize-typescript";
 import Product from "../../../domain/product/entity/product";
-import ProductModel from "../../../domain/infrastructure/product/repository/sequilize/product.model";
 import FindProductUseCase from "./find.product.usecase";
-import CustomerModel from "../../../domain/infrastructure/customer/repository/sequilize/customer.model";
+import CustomerModel from "../../../infrastructure/customer/repository/sequilize/customer.model"; 
 
 const product = new Product("123", "product", 100);
 
