@@ -3,6 +3,7 @@ import ProductModel from "../../../infrastructure/product/repository/sequilize/p
 import Product from "../../../domain/product/entity/product";
 import ProductRepository from "../../../infrastructure/product/repository/sequilize/product.repository";
 import FindProductUseCase from "./find.product.usecase";
+import CreateProductUsecase from "../create/create.product.usecase";
 
 describe("Integration Test find product use case", () => {
     let sequelize: Sequelize;
@@ -22,19 +23,23 @@ describe("Integration Test find product use case", () => {
         });
 
     it("Should find a product", async () => {
-        const product = new Product("123", "Product 1", 1000);
         const productRepository = new ProductRepository();
+        const productCreateUseCase = new CreateProductUsecase(productRepository);
+    
+        const inputCreate = {
+            name: "Product 1",
+            price: 1000,
+        };
+        const createdProduct = await productCreateUseCase.execute(inputCreate);
 
-        const useCase = new FindProductUseCase(productRepository);
-
-        await productRepository.create(product);
 
         const input = {
-            id: "123"
+            id: createdProduct.id
         }
 
+        const useCase = new FindProductUseCase(productRepository);
         const output = {
-            id: "123",
+            id: createdProduct.id,
             name: "Product 1",
             price: 1000
         }
