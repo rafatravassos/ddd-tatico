@@ -19,19 +19,25 @@ export default class CreateCustomerUseCase {
   ): Promise<OutputCreateCustomerDto> {
     const customer = CustomerFactory.createWithAddress(
       input.name,
-      new Address(input.address.street, input.address.number, input.address.zip, input.address.city)
+      new Address(
+        input.address.street,
+        input.address.number,
+        input.address.zip,
+        input.address.city
+      )
     );
 
-    return {
-        id: customer.id,
-        name: customer.name,
-        address: {
-            street: customer.Address.street,
-            number: customer.Address.number,
-            zip: customer.Address.zip,
-            city: customer.Address.city
-        }
-    }
+    await this.customerRepository.create(customer);
 
+    return {
+      id: customer.id,
+      name: customer.name,
+      address: {
+        street: customer.Address.street,
+        number: customer.Address.number,
+        zip: customer.Address.zip,
+        city: customer.Address.city,
+      },
+    };
   }
 }
