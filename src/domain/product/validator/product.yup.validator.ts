@@ -10,7 +10,7 @@ implements ValidatorInterface<Product>
             yup.object().shape( {
                 id: yup.string().required("Id is required"),
                 name: yup.string().required("Name is required"),
-                price: yup.number().required("Price must be greater than 0"),
+                price: yup.number().positive("Price must be greater than 0"),
             })
             .validateSync(
             {
